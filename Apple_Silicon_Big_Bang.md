@@ -173,3 +173,6 @@ brew install --cask cyberduck
 # https://formulae.brew.sh/cask/tunnelblick#default / https://www.tunnelblick.net/
 brew install --cask tunnelblick
 ```
+
+## Setup SSH for Github
+https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
