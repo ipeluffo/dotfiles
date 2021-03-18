@@ -174,5 +174,16 @@ brew install --cask cyberduck
 brew install --cask tunnelblick
 ```
 
-## Setup SSH for Github
+## Setup Git
+### Setup SSH for Github
 https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
+
+### Setup to use Github over https
+1. Create personal token in Github: https://github.com/settings/tokens
+2. Try pushing to repo and use token as password
+
+### Setup global configuration
+```shell
+git config --global user.email ipeluffo@gmail.com
+git config --global user.name "Ignacio Peluffo"
+```
