@@ -6,7 +6,7 @@
     * Visual Studio IntelliCode
     * Install as CLI: https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line
 * IntelliJ: www.jetbrains.com/intellij
-* Docker Desktop: 
+* Docker Desktop: https://www.docker.com/products/docker-desktop
 * Rectangle: 
 * Postgres.app: https://postgresapp.com/
 * Android file transfer: https://www.android.com/intl/en_us/filetransfer/
