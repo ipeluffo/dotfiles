@@ -172,6 +172,11 @@ brew install --cask cyberduck
 # Tunnelblick: VPN client
 # https://formulae.brew.sh/cask/tunnelblick#default / https://www.tunnelblick.net/
 brew install --cask tunnelblick
+
+# autoenv
+# https://github.com/hyperupcall/autoenv
+brew install autoenv
+echo "source $(brew --prefix autoenv)/activate.sh" >> ~/.zshrc
 ```
 
 ## Setup Git
