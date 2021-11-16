@@ -1,17 +1,17 @@
 # Apps
-Chrome
-Brave browser
-Visual Studio Code and extensions:
-    1. Python: ms-python.python
-    2. Visual Studio IntelliCode
-    3. Install as CLI: https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line
-IntelliJ: www.jetbrains.com/intellij
-Docker Desktop: 
-Rectangle: 
-Postgres.app: https://postgresapp.com/
-Android file transfer: https://www.android.com/intl/en_us/filetransfer/
-FileZilla (SFTP client): https://filezilla-project.org/download.php?type=client
-FreeFileSync (Sync files between drives): https://freefilesync.org/
+* Chrome
+* Brave browser
+* Visual Studio Code and extensions:
+    * Python: ms-python.python
+    * Visual Studio IntelliCode
+    * Install as CLI: https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line
+* IntelliJ: www.jetbrains.com/intellij
+* Docker Desktop: 
+* Rectangle: 
+* Postgres.app: https://postgresapp.com/
+* Android file transfer: https://www.android.com/intl/en_us/filetransfer/
+* FileZilla (SFTP client): https://filezilla-project.org/download.php?type=client
+* FreeFileSync (Sync files between drives): https://freefilesync.org/
 
 # Terminal:
 1. iTerm2
@@ -53,9 +53,7 @@ Slack
 
 # Not compatible with M1 (yet)
 1. alt+tab: https://alt-tab-macos.netlify.app/
-2. Postman
-3. RescueTime
-4. Spotify
+2. RescueTime
 
 # Interesting links
 * https://technofob.com/2020/12/24/the-ultimate-mac-m1-terminal-iterm2-oh-my-zsh-zsh-syntax-highlighting/
