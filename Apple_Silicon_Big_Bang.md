@@ -37,8 +37,10 @@ brew install pipx
 export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/shims/python"
 echo 'export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/shims/python"' >> ~/.zshrc
 pipx ensurepath
-poetry (native installer)
 ```
+
+## Poetry
+https://python-poetry.org/docs/#installation
 
 How to reinstall all packages in pipx:
 ```shell
