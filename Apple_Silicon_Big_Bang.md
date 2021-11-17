@@ -42,7 +42,14 @@ pipx ensurepath
 ## Poetry
 https://python-poetry.org/docs/#installation
 
-How to reinstall all packages in pipx:
+### Change settings
+```
+poetry config virtualenvs.in-project false
+poetry config virtualenvs.path ~/.virtualenvs
+```
+
+## Extras
+### How to reinstall all packages in pipx:
 ```shell
 pyenv install 3.9.1
 pyenv shell 3.9.1
@@ -192,3 +199,6 @@ https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-
 git config --global user.email ipeluffo@gmail.com
 git config --global user.name "Ignacio Peluffo"
 ```
+
+## asdf
+Install asdf as indicated in http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies
