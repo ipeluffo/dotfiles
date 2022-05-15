@@ -89,6 +89,12 @@ if [[ $confirmation == "y" ]]; then
     brew install yarn
 fi
 
+echo "Install git? [y/n]"
+read confirmation
+if [[ $confirmation == "y" ]]; then
+    brew install git
+fi
+
 # 3. Setup Python
 
 which -s pyenv
@@ -99,11 +105,13 @@ if [[ $? != 0 ]]; then
     echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zprofile
     echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zprofile
     echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
+    echo 'eval "$(pyenv init -)"' >> ~/.zshrc
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init --path)"
-    pyenv install 3.9.7
-    pyenv global 3.9.7
+    eval "$(pyenv init -)"
+    pyenv install 3.10.4
+    pyenv global 3.10.4
 else
     brew list pyenv &>/dev/null && brew upgrade pyenv
 fi
