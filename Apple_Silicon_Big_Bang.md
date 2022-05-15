@@ -61,8 +61,7 @@ LibreOffice
 Slack
 
 # Not compatible with M1 (yet)
-1. alt+tab: https://alt-tab-macos.netlify.app/
-2. RescueTime
+1. RescueTime
 
 # Interesting links
 * https://technofob.com/2020/12/24/the-ultimate-mac-m1-terminal-iterm2-oh-my-zsh-zsh-syntax-highlighting/
