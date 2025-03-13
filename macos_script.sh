@@ -118,10 +118,10 @@ which -s poetry
 if [[ $? != 0 ]]; then
     curl -sSL https://install.python-poetry.org | python3 -
     
-    export PATH="$HOME/.local/bin:$PATH"
+    # export PATH="$HOME/.local/bin:$PATH"
     echo '\n' >> ~/.zprofile
     echo "# poetry" >> ~/.zprofile
-    echo 'export PATH="'$HOME'/.local/bin:$PATH"' >> ~/.zprofile
+    # echo 'export PATH="'$HOME'/.local/bin:$PATH"' >> ~/.zprofile
     poetry config virtualenvs.in-project false
     poetry config virtualenvs.path ~/.virtualenvs
 
