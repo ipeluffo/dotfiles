@@ -17,7 +17,6 @@ echo "Install VSCode? [y/n]"
 read confirmation
 if [[ $confirmation == "y" ]]; then
     brew install --cask visual-studio-code
-    code --install-extension ms-python.python
 fi
 
 echo "Install Postman? [y/n]"
@@ -75,59 +74,63 @@ if [[ $confirmation == "y" ]]; then
     brew install --cask slack
 fi
 
-echo "Install nvm (and node)? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/HEAD/install.sh)"
-    source ~/.zshrc
-    nvm install 16
-fi
-
-echo "Install yarn? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install yarn
-fi
-
 echo "Install git? [y/n]"
 read confirmation
 if [[ $confirmation == "y" ]]; then
     brew install git
 fi
 
-# 3. Setup Python
-
-which -s pyenv
+# 3. Setup versions manager
+which -s asdf
 if [[ $? != 0 ]]; then
-    brew install pyenv
-    echo "\n" >> ~/.zprofile
-    echo "# pyenv" >> ~/.zprofile
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zprofile
-    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zprofile
-    echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
-    echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
-    pyenv install 3.10.4
-    pyenv global 3.10.4
-else
-    brew list pyenv &>/dev/null && brew upgrade pyenv
+    echo "Installing asdf..."
+    brew install asdf
+    # Instructions: https://asdf-vm.com/guide/getting-started.html#_2-configure-asdf
+    # 1. Add shims directory to path (required)
+    export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+    # 2. Set up shell completions (optional)
+    # Completions are configured by either a ZSH Framework asdf plugin 
+    # (like asdf for oh-my-zsh) or by doing the following:
+    mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
+    asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
+    # Then add the following to your .zshrc:
+    echo "\n" >> ~/.zshrc
+    echo "# asdf" >> ~/.zshrc
+    echo "# append completions to fpath" >> ~/.zshrc
+    echo 'fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)' >> ~/.zshrc
+    echo "# initialise completions with ZSH's compinit" >> ~/.zshrc
+    echo "autoload -Uz compinit && compinit" >> ~/.zshrc
+
+    asdf plugin add python
+    asdf plugin add golang
+    sadf plugin add nodejs
+    asdf plugin add rust
+    asdf plugin add yarn
 fi
 
-## Poetry: https://python-poetry.org/docs/master/#installation
+# 4. Setup Python
+echo "Installing pipx..."
+brew install pipx
+pipx ensurepath
+
+## Poetry: https://python-poetry.org/docs/#installing-with-the-official-installer
 which -s poetry
 if [[ $? != 0 ]]; then
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
-    export PATH="/Users/$USER/.local/bin:$PATH"
+    curl -sSL https://install.python-poetry.org | python3 -
+    
+    export PATH="$HOME/.local/bin:$PATH"
     echo '\n' >> ~/.zprofile
     echo "# poetry" >> ~/.zprofile
-    echo 'export PATH="/Users/'$USER'/.local/bin:$PATH"' >> ~/.zprofile
+    echo 'export PATH="'$HOME'/.local/bin:$PATH"' >> ~/.zprofile
     poetry config virtualenvs.in-project false
     poetry config virtualenvs.path ~/.virtualenvs
+
+    # Install Poetry completions for Zsh
+    poetry completions zsh > ~/.zfunc/_poetry
+    echo 'fpath+=~/.zfunc' >> ~/.zshrc
+    echo 'autoload -Uz compinit && compinit' >> ~/.zshrc
 else
-    poetry self update
+    echo "Poetry is already installed"
 fi
 
 # 4. Setup Google Cloud SDK
@@ -145,3 +148,6 @@ if [[ $? != 0 ]]; then
 else
     brew upgrade --cask google-cloud-sdk
 fi
+
+# 5. Add extra handy commands
+echo "alias clean_branches='git fetch --prune && git branch -vv | grep \": gone]\" | awk \"{print \\\$1}\" | xargs -I % git branch -D %'" >> ~/.zshrc
