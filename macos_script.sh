@@ -85,17 +85,21 @@ which -s asdf
 if [[ $? != 0 ]]; then
     echo "Installing asdf..."
     brew install asdf
+
+    echo "\n" >> ~/.zshrc
+    echo "# asdf" >> ~/.zshrc
     # Instructions: https://asdf-vm.com/guide/getting-started.html#_2-configure-asdf
+    . $(brew --prefix asdf)/libexec/asdf.sh
+    echo '. $(brew --prefix asdf)/libexec/asdf.sh' >> ~/.zshrc
     # 1. Add shims directory to path (required)
     export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+    echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.zshrc
     # 2. Set up shell completions (optional)
     # Completions are configured by either a ZSH Framework asdf plugin 
     # (like asdf for oh-my-zsh) or by doing the following:
     mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
     asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
     # Then add the following to your .zshrc:
-    echo "\n" >> ~/.zshrc
-    echo "# asdf" >> ~/.zshrc
     echo "# append completions to fpath" >> ~/.zshrc
     echo 'fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)' >> ~/.zshrc
     echo "# initialise completions with ZSH's compinit" >> ~/.zshrc
@@ -118,22 +122,25 @@ which -s poetry
 if [[ $? != 0 ]]; then
     curl -sSL https://install.python-poetry.org | python3 -
     
-    # export PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
     echo '\n' >> ~/.zprofile
     echo "# poetry" >> ~/.zprofile
+    # This is commented out because pipx already adds this to the PATH
     # echo 'export PATH="'$HOME'/.local/bin:$PATH"' >> ~/.zprofile
     poetry config virtualenvs.in-project false
-    poetry config virtualenvs.path ~/.virtualenvs
+    # poetry config virtualenvs.path ~/.virtualenvs
 
     # Install Poetry completions for Zsh
     poetry completions zsh > ~/.zfunc/_poetry
+    echo "\n" >> ~/.zshrc
+    echo "# poetry" >> ~/.zshrc
     echo 'fpath+=~/.zfunc' >> ~/.zshrc
     echo 'autoload -Uz compinit && compinit' >> ~/.zshrc
 else
     echo "Poetry is already installed"
 fi
 
-# 4. Setup Google Cloud SDK
+# 5. Setup Google Cloud SDK
 
 brew list --cask google-cloud-sdk &>/dev/null
 if [[ $? != 0 ]]; then
@@ -149,5 +156,10 @@ else
     brew upgrade --cask google-cloud-sdk
 fi
 
-# 5. Add extra handy commands
+# 6. Install Github CLI
+brew install gh
+
+# 7. Add extra handy commands
+echo "\n" >> ~/.zshrc
+echo "# Handy commands" >> ~/.zshrc
 echo "alias clean_branches='git fetch --prune && git branch -vv | grep \": gone]\" | awk \"{print \\\$1}\" | xargs -I % git branch -D %'" >> ~/.zshrc
