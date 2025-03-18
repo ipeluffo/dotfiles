@@ -59,6 +59,7 @@ if [[ $confirmation == "y" ]]; then
     # direnv: https://direnv.net/
     brew install direnv
     echo "\n" >> ~/.zshrc
+    echo "# direnv" >> ~/.zshrc
     echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 fi
 
@@ -141,7 +142,6 @@ else
 fi
 
 # 5. Setup Google Cloud SDK
-
 brew list --cask google-cloud-sdk &>/dev/null
 if [[ $? != 0 ]]; then
     brew install --cask google-cloud-sdk

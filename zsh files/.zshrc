@@ -140,3 +140,6 @@ source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completi
 
 # Handy commands
 alias clean_branches='git fetch --prune && git branch -vv | grep ": gone]" | awk "{print \$1}" | xargs -I % git branch -D %'
+
+# direnv hook
+eval "$(direnv hook zsh)"
