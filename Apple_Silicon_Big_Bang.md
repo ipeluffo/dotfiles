@@ -1,3 +1,11 @@
+# Checklist
+1. Export browser tabs if necessary
+2. Check temporal documents in editors like VSCode
+3. Export ssh keys
+4. Export `GITHUB_TOKEN` env var
+   1. Alternative 1: regenerate one for new environment
+   2. Alternative 2: save token
+
 # Apps
 * Chrome
 * Brave browser
