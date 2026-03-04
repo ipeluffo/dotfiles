@@ -96,7 +96,7 @@ if [[ $? != 0 ]]; then
     export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
     echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.zshrc
     # 2. Set up shell completions (optional)
-    # Completions are configured by either a ZSH Framework asdf plugin 
+    # Completions are configured by either a ZSH Framework asdf plugin
     # (like asdf for oh-my-zsh) or by doing the following:
     mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
     asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
@@ -122,7 +122,7 @@ pipx ensurepath
 which -s poetry
 if [[ $? != 0 ]]; then
     curl -sSL https://install.python-poetry.org | python3 -
-    
+
     export PATH="$HOME/.local/bin:$PATH"
     echo '\n' >> ~/.zprofile
     echo "# poetry" >> ~/.zprofile
@@ -163,3 +163,35 @@ brew install gh
 echo "\n" >> ~/.zshrc
 echo "# Handy commands" >> ~/.zshrc
 echo "alias clean_branches='git fetch --prune && git branch -vv | grep \": gone]\" | awk \"{print \\\$1}\" | xargs -I % git branch -D %'" >> ~/.zshrc
+
+# 8. Install AI Tools
+
+echo "Install Gemini CLI? [y/n]"
+read confirmation
+if [[ $confirmation == "y" ]]; then
+    brew install gemini-cli
+fi
+
+echo "Install Copilot CLI? [y/n]"
+read confirmation
+if [[ $confirmation == "y" ]]; then
+    brew install copilot-cli
+fi
+
+echo "Install Claude Code CLI? [y/n]"
+read confirmation
+if [[ $confirmation == "y" ]]; then
+    curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+echo "Install Opencode CLI? [y/n]"
+read confirmation
+if [[ $confirmation == "y" ]]; then
+    curl -fsSL https://opencode.ai/install | bash
+fi
+
+echo "Install Opencode desktop app? [y/n]"
+read confirmation
+if [[ $confirmation == "y" ]]; then
+    brew install --cask opencode-desktop
+fi
