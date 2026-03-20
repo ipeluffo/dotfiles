@@ -1,3 +1,17 @@
+#!/bin/zsh
+set -euo pipefail
+
+# Helper: prompt user and run command if confirmed
+confirm_and_run() {
+    local prompt_msg="$1"
+    shift
+    echo "$prompt_msg [y/n]"
+    read confirmation
+    if [[ "$confirmation" == "y" ]]; then
+        "$@"
+    fi
+}
+
 # 1. Install/Update Homebrew
 
 which -s brew
@@ -13,39 +27,15 @@ fi
 
 # 2. Install Applications
 
-echo "Install VSCode? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install --cask visual-studio-code
-fi
-
-echo "Install Postman? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install --cask postman
-fi
-
-echo "Install Postgres CLI? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install pgcli
-fi
-
-echo "Install Docker Desktop? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install --cask docker
-fi
-
-echo "Install iTerm2? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install --cask iterm2
-fi
+confirm_and_run "Install VSCode?" brew install --cask visual-studio-code
+confirm_and_run "Install Postman?" brew install --cask postman
+confirm_and_run "Install Postgres CLI?" brew install pgcli
+confirm_and_run "Install Docker Desktop?" brew install --cask docker
+confirm_and_run "Install iTerm2?" brew install --cask iterm2
 
 echo "Install autoenv? [y/n]"
 read confirmation
-if [[ $confirmation == "y" ]]; then
+if [[ "$confirmation" == "y" ]]; then
     # autoenv: https://github.com/hyperupcall/autoenv
     brew install autoenv
     echo "\n" >> ~/.zshrc
@@ -55,7 +45,7 @@ fi
 
 echo "Install direnv? [y/n]"
 read confirmation
-if [[ $confirmation == "y" ]]; then
+if [[ "$confirmation" == "y" ]]; then
     # direnv: https://direnv.net/
     brew install direnv
     echo "\n" >> ~/.zshrc
@@ -63,23 +53,9 @@ if [[ $confirmation == "y" ]]; then
     echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 fi
 
-echo "Install httpie? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install httpie
-fi
-
-echo "Install Slack? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install --cask slack
-fi
-
-echo "Install git? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install git
-fi
+confirm_and_run "Install httpie?" brew install httpie
+confirm_and_run "Install Slack?" brew install --cask slack
+confirm_and_run "Install git?" brew install git
 
 # 3. Setup versions manager
 which -s asdf
@@ -108,7 +84,7 @@ if [[ $? != 0 ]]; then
 
     asdf plugin add python
     asdf plugin add golang
-    sadf plugin add nodejs
+    asdf plugin add nodejs
     asdf plugin add rust
     asdf plugin add yarn
 fi
@@ -136,7 +112,7 @@ if [[ $? != 0 ]]; then
     echo "\n" >> ~/.zshrc
     echo "# poetry" >> ~/.zshrc
     echo 'fpath+=~/.zfunc' >> ~/.zshrc
-    echo 'autoload -Uz compinit && compinit' >> ~/.zshrc
+    # Note: compinit is already initialized by asdf setup above
 else
     echo "Poetry is already installed"
 fi
@@ -148,7 +124,12 @@ if [[ $? != 0 ]]; then
     echo '\n' >> ~/.zshrc
     echo "# Google Cloud SDK" >> ~/.zshrc
     echo 'source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"' >> ~/.zshrc
-    gcloud init --project spider-ef8f
+
+    echo "Enter your GCP project ID (or press Enter for 'spider-ef8f'):"
+    read gcp_project
+    gcp_project="${gcp_project:-spider-ef8f}"
+    gcloud init --project "$gcp_project"
+
     # Enable authentication to pull private Docker images from GCR
     gcloud components install docker-credential-gcr
     gcloud auth configure-docker
@@ -166,32 +147,19 @@ echo "alias clean_branches='git fetch --prune && git branch -vv | grep \": gone]
 
 # 8. Install AI Tools
 
-echo "Install Gemini CLI? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install gemini-cli
-fi
-
-echo "Install Copilot CLI? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install copilot-cli
-fi
+confirm_and_run "Install Gemini CLI?" brew install gemini-cli
+confirm_and_run "Install Copilot CLI?" brew install copilot-cli
 
 echo "Install Claude Code CLI? [y/n]"
 read confirmation
-if [[ $confirmation == "y" ]]; then
+if [[ "$confirmation" == "y" ]]; then
     curl -fsSL https://claude.ai/install.sh | bash
 fi
 
 echo "Install Opencode CLI? [y/n]"
 read confirmation
-if [[ $confirmation == "y" ]]; then
+if [[ "$confirmation" == "y" ]]; then
     curl -fsSL https://opencode.ai/install | bash
 fi
 
-echo "Install Opencode desktop app? [y/n]"
-read confirmation
-if [[ $confirmation == "y" ]]; then
-    brew install --cask opencode-desktop
-fi
+confirm_and_run "Install Opencode desktop app?" brew install --cask opencode-desktop

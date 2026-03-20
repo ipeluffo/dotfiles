@@ -1,3 +1,6 @@
+#!/bin/zsh
+set -euo pipefail
+
 # Dev
 # Intellij
 brew install --cask intellij-idea
@@ -53,8 +56,8 @@ brew install --cask notion
 brew install --cask grandperspective
 
 # Terminal configuration
-echo '\n' >> .zshrc
-echo '# Disable share history between sessions' >> .zshrc
-echo '# https://stackoverflow.com/questions/48873643/how-to-stop-zsh-from-merging-history-for-all-closing-tabs' >> .zshrc
-echo '# https://github.com/ohmyzsh/ohmyzsh/issues/2537' >> .zshrc
-echo 'unsetopt share_history' >> .zshrc
+echo '\n' >> ~/.zshrc
+echo '# Disable share history between sessions' >> ~/.zshrc
+echo '# https://stackoverflow.com/questions/48873643/how-to-stop-zsh-from-merging-history-for-all-closing-tabs' >> ~/.zshrc
+echo '# https://github.com/ohmyzsh/ohmyzsh/issues/2537' >> ~/.zshrc
+echo 'unsetopt share_history' >> ~/.zshrc
