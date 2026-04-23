@@ -163,3 +163,5 @@ if [[ "$confirmation" == "y" ]]; then
 fi
 
 confirm_and_run "Install Opencode desktop app?" brew install --cask opencode-desktop
+
+confirm_and_run "Install OpenAI Codex CLI?" brew install codex
